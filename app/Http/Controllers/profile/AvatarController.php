@@ -10,9 +10,12 @@ use App\Http\Requests\updateAvatarRequest;
 class AvatarController extends Controller
 {
     public function update( updateAvatarRequest $request){
-        $request->file('avatar')->store('avatars');
-        auth()->user()->update(['avatar'=>'testeee']);
-        dd(auth()->user());
+      // in this we show just whene avatars dirctoty gonna be storage
+      //  $path= $request->file('avatar')->store('public/avatars');
+      $path= $request->file('avatar')->store('avatars','public');
+    
+        auth()->user()->update(['avatar'=>'path']);
+        
         // t===>this is for create a new dirctory in storage and create things inside it
         
         // dd($request->all());
