@@ -1,7 +1,7 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <form method="post" action="{{ route('login.github') }}" class="text-center">
+    <form method="POST" action="{{ route('login.github') }}" class="text-center">
         @csrf
         <x-primary-button class="ml-3">
             Login with GitHub
