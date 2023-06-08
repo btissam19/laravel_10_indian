@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class UpdateTicketRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateTicketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class UpdateTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'       => ['Required','string', 'max:255'],
+            'description' => ['Required','string'],
+            'status'      => ['Required','string'],
+            'attachment'  => ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf'],
         ];
     }
 }
