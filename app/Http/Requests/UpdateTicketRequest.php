@@ -23,9 +23,9 @@ class UpdateTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['Required','string', 'max:255'],
-            'description' => ['Required','string'],
-            'status'      => ['Required','string'],
+            'title'       => ['string', 'max:255'],
+            'description' => ['string'],
+            'status'      => ['string'],
             'attachment'  => ['sometimes', 'file', 'mimes:jpg,jpeg,png,pdf'],
         ];
     }
