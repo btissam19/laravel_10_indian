@@ -16,7 +16,15 @@ class TicketController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {    $tickets=Ticket::all();
+    {
+        $user    = auth()->user();
+        if ($user->isAdmin) {
+            $tickets = Ticket::latest()->get();
+        } else {
+            $tickets = $user->tickets;
+        }
+        
+        //here we have a if condition
         return view('ticket.index', compact('tickets'));
     }
 
@@ -67,15 +75,19 @@ class TicketController extends Controller
      */
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
-            $ticket->update($request->except('attachment'));
+        $ticket->update($request->except('attachment'));
+
+        if ($request->has('status')) {
     
-    
-            if ($request->file('attachment')) {
-                Storage::disk('public')->delete($ticket->attachment);
-                $this->storeAttachment($request, $ticket);
-            }
-            return redirect(route('ticket.index'));
+            $ticket->user->notify(new TicketUpdatedNotification($ticket));
+        }
         
+
+        if ($request->file('attachment')) {
+            Storage::disk('public')->delete($ticket->attachment);
+            $this->storeAttachment($request, $ticket);
+        }
+        return redirect(route('ticket.index'));
     }
 
     /**
@@ -86,7 +98,6 @@ class TicketController extends Controller
         $ticket->delete();
         return redirect(route('ticket.index'));
     }
-
 
     protected function storeAttachment($request, $ticket)
     {

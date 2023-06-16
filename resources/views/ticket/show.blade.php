@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 text-white dark:bg-gray-900">
-        <h1 class="text-white text-lg font-bold">{{ $ticket->title }}</h1>
+        <h1 class="text-black text-lg font-bold">{{ $ticket->title }}</h1>
         <div class="w-full sm:max-w-xl mt-6 px-6 py-4 bg-gray-900 text-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
             <div class="text-white flex justify-between py-4">
                 <p>{{ $ticket->description }}</p>
@@ -27,7 +27,7 @@
                         <form action="{{ route('ticket.update', $ticket->id) }}" method="post">
                             @csrf
                             @method('patch')
-                            <input type="hidden" name="status" value="resolved" />
+                            <input type="hidden" name="status" value="resolvedfffg" />
                             <x-primary-button>Resolve</x-primary-button>
                         </form>
                         <form action="{{ route('ticket.update', $ticket->id) }}" method="post">
